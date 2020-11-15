@@ -27,7 +27,8 @@
   <input type="button" class="btn" value="Sign in">
 </div>
 
- 
-
+<form action="http://localhost:8080/yaya/ins.jsp">
+    <input type="submit" class="btn1" value="new acount" />
+</form>
   </body>
 </html>
