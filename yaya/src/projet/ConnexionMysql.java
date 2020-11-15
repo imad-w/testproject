@@ -7,7 +7,8 @@ import javax.swing.JOptionPane;
 
 public class ConnexionMysql {
 	
-	Connection conn =null;
+	static Connection conn =null;
+
 	
 public static void ConnexionDb() {
 		
@@ -22,22 +23,24 @@ public static void ConnexionDb() {
     }*/
 
     // auto close connection
-    try (Connection conn = DriverManager.getConnection(
-            "jdbc:mysql://127.0.0.1:80/PAM", "root","")) {
-		Class.forName("com.mysql.jdbc.Driver");
+    try {  Class.forName("com.mysql.jdbc.Driver");
+System.out.println ("driver etablie");
+	}
+catch (ClassNotFoundException e) 
+{
+System.out.println ("driver non trouvé");
+}
+    
+String URL =  ("jdbc:mysql://localhost:3306/pam" );
+String USER = "root";
+String PASSWD = "";
 
-
-        if (conn != null) {
-            System.out.println("Connected to the database!");
-        } else {
-            System.out.println("Failed to make connection!");
-        }
-
-    } catch (SQLException e) {
-        System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+try {
+conn=DriverManager.getConnection(URL,USER,PASSWD);;
+System.out.println ("connexion  base MySql etablie");} 
+catch (SQLException e) {
+System.out.println ("pas de connexion");
+                       }
 }
 	
 }

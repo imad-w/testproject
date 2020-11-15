@@ -67,33 +67,39 @@ public class sins extends HttpServlet {
 	numero=Integer.parseInt(request.getParameter("numero"));
 	role=request.getParameter("role");
 	
-	    
-	
+	String URL =  ("jdbc:mysql://localhost:3306/pam" );
+	String USER = "root";
+	String PASSWD = "";
    
+	Connection conn = null;
+	
+
     try {
     	
+    	/*chargement du pilote MySQL*/
+		Class.forName("com.mysql.jdbc.Driver");
+		
+		/*ouverture de la connexion*/
+		conn=DriverManager.getConnection(URL,USER,PASSWD);;
+		
+		/*Envoi d’un requête*/
 		String query = "INSERT INTO `utilisateur`(`username`, `password`, `adress`, `numero`, `role`) VALUES (?,?,?,?,?)";
 		System.out.println(query);
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = null;
-		String utilisateur = "root";
-		String motDePasse = "";
-		conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306 /PAM", utilisateur, motDePasse);
 		
 		
-
-		
+		/*passer une requête à la base*/
 		stmt=conn.createStatement();
 		
+		/*exécutions de procédures stockées*/
 		stmt.execute(query);
 		
 		
-		System.out.println("Data inserted");
+		System.out.println ("connexion  base MySql etablie");
 		
 	} catch (ClassNotFoundException e) {
 		e.printStackTrace();
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
+		System.out.println ("pas de connexion");
 		e.printStackTrace();
 	}
 		
