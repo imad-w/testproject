@@ -80,7 +80,7 @@ public class sins extends HttpServlet {
 		Class.forName("com.mysql.jdbc.Driver");
 		
 		/*ouverture de la connexion*/
-		conn=DriverManager.getConnection(URL,USER,PASSWD);;
+		conn = DriverManager.getConnection(URL, USER,PASSWD);
 		
 		/*Envoi d’un requête*/
 		String query = "INSERT INTO `utilisateur`(`username`, `password`, `adress`, `numero`, `role`) VALUES (?,?,?,?,?)";
