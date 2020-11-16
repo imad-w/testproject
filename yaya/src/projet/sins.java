@@ -14,6 +14,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
+
+import pam.ConnexionMysql;
+
+
 
 
 
@@ -27,15 +32,17 @@ public class sins extends HttpServlet {
 		
 	
 	
-    Connection conn;
-	Statement stmt;
+    
 	String username,password,adress,role;
 	int numero;
 	
 	
 	
 	
-	
+	Connection conn = null;
+    PreparedStatement prepared =null;
+    ResultSet resultat=null;
+    
 	
 	private static final long serialVersionUID = 1L;
        
@@ -57,49 +64,55 @@ public class sins extends HttpServlet {
 		
 		
 	
+		conn = ConnexionMysql.ConnexionDb();	
 		
 		
 		
-		
-	username=request.getParameter("username");
-	password=request.getParameter("password");
-	adress=request.getParameter("adress");
-	numero=Integer.parseInt(request.getParameter("numero"));
-	role=request.getParameter("role");
-	
-	String URL =  ("jdbc:mysql://localhost:3306/pam" );
-	String USER = "root";
-	String PASSWD = "";
-   
-	Connection conn = null;
 	
 
+	
+	Connection conn = null;
+	
+	
+	
     try {
     	
-    	/*chargement du pilote MySQL*/
-		Class.forName("com.mysql.jdbc.Driver");
-		
-		/*ouverture de la connexion*/
-		conn = DriverManager.getConnection(URL, USER,PASSWD);
-		
-		/*Envoi d’un requête*/
+    	//Envoi d’un requête
 		String query = "INSERT INTO `utilisateur`(`username`, `password`, `adress`, `numero`, `role`) VALUES (?,?,?,?,?)";
 		System.out.println(query);
+    	
+		//ouverture de la connexion
+        conn = DriverManager.getConnection("jdbc:mysql://localhost/pam","root","");
+    	
+    	
+		prepared=conn.prepareStatement(query);
+
+		username=request.getParameter("username");
+		password=request.getParameter("password");
+		adress=request.getParameter("adress");
+		numero=Integer.parseInt(request.getParameter("numero"));
+		role=request.getParameter("role");
 		
 		
-		/*passer une requête à la base*/
+		prepared.executeUpdate();
+		
+		JOptionPane.showMessageDialog(null, "register succesfully");
+
+
+		prepared = conn.prepareStatement(query);
+		resultat= prepared.executeQuery();
+		
+		
+		//passer une requête à la base
 		stmt=conn.createStatement();
 		
-		/*exécutions de procédures stockées*/
+		//exécutions de procédures stockées
 		stmt.execute(query);
 		
 		
-		System.out.println ("connexion  base MySql etablie");
 		
-	} catch (ClassNotFoundException e) {
-		e.printStackTrace();
 	} catch (SQLException e) {
-		System.out.println ("pas de connexion");
+		JOptionPane.showMessageDialog(null,"verifier les coordonnees");
 		e.printStackTrace();
 	}
 		

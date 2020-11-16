@@ -13,5 +13,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/TEST/Dropbox (Ancien)/Mon PC (DESKTOP-G3GPHMU)/Desktop/mysql-installer-web-community-8.0.22.0.msi"/>
+	<classpathentry kind="lib" path="C:/Users/TEST/Dropbox (Ancien)/Mon PC (DESKTOP-G3GPHMU)/Desktop/com.mysql.jdbc_5.1.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
